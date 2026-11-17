@@ -1,0 +1,26 @@
+name: carrier/mcp
+description: "Carrier MCP: programmable eSIM and mobile connectivity for your agent. 144 tools (72 read, 52 write, 20 admin), 5 prompts."
+homepage: https://carrier.llc
+categories:
+  - telecom
+  - business
+  - api
+
+startCommand:
+  type: stdio
+  command: npx
+  args:
+    - "-y"
+    - "-p"
+    - "@carrierllc/mcp"
+    - "carrier-mcp"
+  configSchema:
+    type: object
+    properties:
+      apiKey:
+        type: string
+        title: Carrier API Key
+        description: "Your Carrier API key. Get one at https://carrier.llc."
+        sensitive: true
+    required:
+      - apiKey

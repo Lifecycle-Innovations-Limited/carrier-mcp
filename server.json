@@ -1,0 +1,45 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "llc.carrier/mcp",
+  "title": "Carrier",
+  "description": "Programmable eSIM and mobile connectivity: manage fleets, plans and orders from your agent.",
+  "version": "0.13.89",
+  "websiteUrl": "https://carrier.llc",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@carrierllc/mcp",
+      "version": "0.13.89",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "CARRIER_API_KEY",
+          "description": "Your Carrier API key (ak_...). Starts the server and enables the storefront management tools only. OCS tools need CARRIER_OCS_API_TOKEN and durable inventory tools need CARRIER_API_TOKEN. Set at least one of the three: with none the server exits.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "CARRIER_API_TOKEN",
+          "description": "Your own authenticated Carrier API credential. Needed for durable inventory tools such as assign_package. The server will not start unless this, CARRIER_API_KEY or CARRIER_OCS_API_TOKEN is set.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "CARRIER_OCS_API_TOKEN",
+          "description": "OCS API token for the explicit OCS tools. Not a Carrier API credential. Set this, CARRIER_API_KEY or CARRIER_API_TOKEN: the server will not start with none of them.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.carrier.llc/mcp"
+    }
+  ]
+}
