@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate config
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate server.json and smithery.yaml
+        run: |
+          python3 - <<'PYEOF'
+          import json
+
+          with open("server.json", encoding="utf-8") as fh:
+              data = json.load(fh)
+          for field in ("name", "description", "version"):
+              if not data.get(field):
+                  raise SystemExit(f"server.json: missing required field '{field}'")
+          print("server.json: valid JSON with required fields present")
+          PYEOF
+          pip install --quiet pyyaml
+          python3 - <<'PYEOF'
+          import yaml
+
+          with open("smithery.yaml", encoding="utf-8") as fh:
+              data = yaml.safe_load(fh)
+          for field in ("name", "description", "startCommand"):
+              if not data.get(field):
+                  raise SystemExit(f"smithery.yaml: missing required field '{field}'")
+          print("smithery.yaml: valid YAML with required fields present")
+          PYEOF
