@@ -2,7 +2,7 @@
 
 Programmable eSIM and mobile connectivity for your agent. Carrier is the control plane for mobile connectivity, like Stripe for telecom: manage eSIM fleets, create and sell connectivity plans, and simulate an order with a free test eSIM before going live.
 
-Works with Claude, Cursor, VS Code and any MCP client. 144 tools (72 read, 52 write, 20 admin) and 5 prompts.
+Works with Claude, Cursor, VS Code and any MCP client. 161 tools (80 read, 61 write, 20 admin) and 5 prompts.
 
 MCP registry name: `llc.carrier/mcp` · npm: [`@carrierllc/mcp`](https://www.npmjs.com/package/@carrierllc/mcp) · site: https://carrier.llc
 

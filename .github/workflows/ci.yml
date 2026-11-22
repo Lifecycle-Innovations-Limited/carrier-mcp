@@ -42,5 +42,11 @@ jobs:
           for field in ("name", "description", "startCommand"):
               if not data.get(field):
                   raise SystemExit(f"smithery.yaml: missing required field '{field}'")
+          start = data["startCommand"]
+          fn = start.get("commandFunction", "")
+          if "CARRIER_API_KEY" not in fn or "config.apiKey" not in fn:
+              raise SystemExit("smithery.yaml: commandFunction must pass config.apiKey as CARRIER_API_KEY")
+          if "-p" not in fn or "carrier-mcp" not in fn:
+              raise SystemExit("smithery.yaml: commandFunction must run the -p carrier-mcp form")
           print("smithery.yaml: valid YAML with required fields present")
           PYEOF
